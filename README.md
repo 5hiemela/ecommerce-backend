@@ -47,9 +47,9 @@ Once the backend logic is complete, the application will expose these core web U
 - [x] Initial Spring Boot repository setup
 - [x] Secured database credentials using environment variables
 - [x] Established successful connection to local MySQL server
-- [ ] Create core Java Models (Product, Category, User, Order)
-- [ ] Build Repository interfaces for database communication
-- [ ] Implement Service classes to handle store logic
-- [ ] Build Controller endpoints to expose data via URLs
+- [X] Create core Java Models (Product, Category, User, Order)
+- [X] Build Repository interfaces for database communication
+- [X] Implement Service classes to handle store logic
+- [X] Build Controller endpoints to expose data via URLs
 - [ ] Enable CORS to safely connect the React frontend
 - [ ] Add input validation and clear error handling

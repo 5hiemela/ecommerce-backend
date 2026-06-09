@@ -19,13 +19,10 @@ public class OrderController {
 
     // Endpoint: POST /api/orders/checkout?userId=1
     @PostMapping("/checkout")
-    public ResponseEntity<?> checkout(@RequestParam Long userId) {
-        try {
-            Order order = orderService.createOrder(userId);
-            return ResponseEntity.ok(order);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<Order> checkout(@RequestParam Long userId) {
+        // No try-catch block anymore - Let Spring handle the exceptions globally
+        Order order = orderService.createOrder(userId);
+        return ResponseEntity.ok(order);
     }
 
     // Endpoint: GET /api/orders/user/1

@@ -12,6 +12,8 @@ import com.example.ecommerce.repository.ProductRepository;
 import com.example.ecommerce.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.example.ecommerce.exception.InsufficientStockException;
+import com.example.ecommerce.exception.ResourceNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,11 +43,11 @@ public class OrderService {
     @Transactional
     public Order createOrder(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + userId));
 
         List<CartItem> cartItems = cartItemRepository.findByUserId(userId);
         if (cartItems.isEmpty()) {
-            throw new RuntimeException("Cannot place order. Shopping cart is empty.");
+            throw new InsufficientStockException("Cannot place order. Shopping cart is empty.");
         }
 
         // Calculate order grand total
@@ -63,7 +65,7 @@ public class OrderService {
             Product product = item.getProduct();
 
             if (product.getStockQuantity() < item.getQuantity()) {
-                throw new RuntimeException("Not enough stock for product: " + product.getName());
+                throw new InsufficientStockException("Not enough stock for product: " + product.getName());
             }
 
             // Deduct store stock inventory

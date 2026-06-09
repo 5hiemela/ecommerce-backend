@@ -19,15 +19,11 @@ public class CartItemController {
 
     // Endpoint: POST /api/cart/add?userId=1&productId=2&quantity=3
     @PostMapping("/add")
-    public ResponseEntity<?> addItemToCart(@RequestParam Long userId,
-                                           @RequestParam Long productId,
-                                           @RequestParam int quantity) {
-        try {
-            CartItem cartItem = cartItemService.addItemToCart(userId, productId, quantity);
-            return ResponseEntity.ok(cartItem);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<CartItem> addItemToCart(@RequestParam Long userId,
+                                                  @RequestParam Long productId,
+                                                  @RequestParam int quantity) {
+        CartItem cartItem = cartItemService.addItemToCart(userId, productId, quantity);
+        return ResponseEntity.ok(cartItem);
     }
 
     // Endpoint: GET /api/cart?userId=1
@@ -40,11 +36,7 @@ public class CartItemController {
     // Endpoint: DELETE /api/cart/items/5
     @DeleteMapping("/items/{cartItemId}")
     public ResponseEntity<String> removeCartItem(@PathVariable Long cartItemId) {
-        try {
-            cartItemService.removeCartItem(cartItemId);
-            return ResponseEntity.ok("Item removed from cart successfully.");
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        cartItemService.removeCartItem(cartItemId);
+        return ResponseEntity.ok("Item removed from cart successfully.");
     }
 }

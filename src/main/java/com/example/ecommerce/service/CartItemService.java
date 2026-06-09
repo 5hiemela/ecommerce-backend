@@ -1,5 +1,7 @@
 package com.example.ecommerce.service;
 
+import com.example.ecommerce.exception.InsufficientStockException;
+import com.example.ecommerce.exception.ResourceNotFoundException;
 import com.example.ecommerce.model.CartItem;
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.model.User;
@@ -29,14 +31,14 @@ public class CartItemService {
     // Add an item to a user's cart or increment quantity if it already exists
     public CartItem addItemToCart(Long userId, Long productId, int quantity) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + userId));
 
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + productId));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with ID: " + productId));
 
         // Business rule: Enforce live inventory check before allowing add-to-cart
         if (product.getStockQuantity() < quantity) {
-            throw new RuntimeException("Insufficient inventory available for product: " + product.getName());
+            throw new InsufficientStockException("Insufficient inventory available for product: " + product.getName());
         }
 
         // Check if the user already has this specific item in their cart
@@ -47,7 +49,7 @@ public class CartItemService {
             int newQuantity = itemToUpdate.getQuantity() + quantity;
 
             if (product.getStockQuantity() < newQuantity) {
-                throw new RuntimeException("Cannot add more items. Total exceeds available stock.");
+                throw new InsufficientStockException("Cannot add more items. Total exceeds available stock.");
             }
 
             itemToUpdate.setQuantity(newQuantity);
@@ -66,7 +68,7 @@ public class CartItemService {
     // Remove an individual line item from a user's cart completely
     public void removeCartItem(Long cartItemId) {
         if (!cartItemRepository.existsById(cartItemId)) {
-            throw new RuntimeException("Cart item record not found with ID: " + cartItemId);
+            throw new ResourceNotFoundException("Cart item record not found with ID: " + cartItemId);
         }
         cartItemRepository.deleteById(cartItemId);
     }

@@ -19,14 +19,9 @@ public class UserController {
 
     // Endpoint: POST /api/users/register
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
-        try {
-            User registeredUser = userService.registerUser(user);
-            return ResponseEntity.ok(registeredUser);
-        } catch (RuntimeException e) {
-            // Returns a 400 Bad Request with the custom validation message if the email is taken
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<User> registerUser(@RequestBody User user) {
+        User registeredUser = userService.registerUser(user);
+        return ResponseEntity.ok(registeredUser);
     }
 
     // Endpoint: GET /api/users
@@ -34,5 +29,11 @@ public class UserController {
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+    // Endpoint: GET /api/users/{id}
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 }

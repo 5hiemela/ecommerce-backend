@@ -1,5 +1,6 @@
 package com.example.ecommerce.service;
 
+import com.example.ecommerce.exception.ResourceNotFoundException;
 import com.example.ecommerce.model.User;
 import com.example.ecommerce.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class UserService {
     public User registerUser(User user) {
         Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
         if (existingUser.isPresent()) {
-            throw new RuntimeException("Email address is already in use: " + user.getEmail());
+            throw new IllegalArgumentException("Email address is already in use: " + user.getEmail());
         }
 
         // Ensure the timestamp is set on creation
@@ -37,14 +38,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    // Retrieve all users (useful for administrative dashboards)
+    // Retrieve all users
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     // Find a specific user by their unique ID
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
     }
 
     // Find a specific user by their email address

@@ -41,13 +41,13 @@ public class ProductService {
             existingProduct.setStockQuantity(productDetails.getStockQuantity());
             existingProduct.setCategory(productDetails.getCategory());
             return productRepository.save(existingProduct);
-        }).orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id)); // <-- Changed here
+        }).orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
     }
 
     // Delete a product
     public void deleteProduct(Long id) {
         if (!productRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Product not found with id " + id); // <-- Changed here
+            throw new ResourceNotFoundException("Product not found with id " + id);
         }
         productRepository.deleteById(id);
     }

@@ -73,10 +73,31 @@ public class DataInitializer implements CommandLineRunner {
                     savedOrganization
             );
 
+            Product lamp = new Product(
+                    "Monitor Light Bar",
+                    "Sits on top of your monitor to illuminate your desk space without creating screen glare.",
+                    49.99, 30, savedOrganization
+            );
+
+            Product pad = new Product(
+                    "MagSafe Charging Stand",
+                    "Aluminum desktop stand that charges your phone vertically or horizontally.",
+                    29.50, 40, savedOrganization
+            );
+
+            Product trackpad = new Product(
+                    "Wireless Trackpad",
+                    "Rechargeable touch surface with support for full multi-touch gestures.",
+                    110.00, 15, savedPeripherals
+            );
+
             productRepository.save(keyboard);
             productRepository.save(mouse);
             productRepository.save(mat);
             productRepository.save(riser);
+            productRepository.save(lamp);
+            productRepository.save(pad);
+            productRepository.save(trackpad);
 
             System.out.println("Tech workspace sample data successfully seeded!");
         } else {

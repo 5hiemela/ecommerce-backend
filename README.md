@@ -31,7 +31,7 @@ This backend implements a clean **Layered (N-Tier) Architecture** to isolate log
 
 ## API Endpoints Reference
 
-Once the backend logic is complete, the application will expose these core web URLs for the React frontend to communicate with:
+The application exposes the following REST API endpoints for the React frontend to communicate with:
 
 | HTTP Method | URL Endpoint | What It Does | Data Expected (Payload) |
 | :--- | :--- | :--- | :--- |
@@ -52,7 +52,7 @@ Once the backend logic is complete, the application will expose these core web U
 | POST | `/api/orders` | Processes customer checkout and saves order | Order Details (JSON) |
 ---
 
-## Project Roadmap
+## Completed Features
 
 - [x] Initial Spring Boot repository setup
 - [x] Secured database credentials using environment variables

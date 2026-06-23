@@ -1,8 +1,8 @@
-# E-Commerce Backend API
+# Workspace Essentials - Backend
 
-A REST API built with Java Spring Boot and MySQL that handles the core business logic, database management, and data routing for a full-stack e-commerce store.
+The REST API built with Java Spring Boot and MySQL that handles the business logic, database management, and data routing for a full-stack tech store application.
 
-This application acts as the backend server, securely managing data and exposing clean communication points (endpoints) for a frontend user interface to connect to.
+This application acts as the backend server, securely managing data and exposing clean communication points (endpoints) for the frontend user interface to connect to.
 
 ---
 
@@ -63,3 +63,31 @@ Once the backend logic is complete, the application will expose these core web U
 - [X] Build Controller endpoints to expose data via URLs
 - [X] Enable CORS to safely connect the React frontend
 - [X] Add input validation and clear error handling
+
+---
+
+## How to Run
+
+### Prerequisites
+* Java Development Kit (JDK) 17 or higher
+* MySQL Server
+
+### Setup Steps
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/5hiemela/workspace-essentials-backend
+   ```
+
+2. Configure the database:
+   Open `src/main/resources/application.properties` and update the datasource configuration with your local MySQL credentials:
+   ```properties
+   spring.datasource.url=jdbc:mysql://localhost:3306/your_database_name
+   spring.datasource.username=your_username
+   spring.datasource.password=your_password
+   ```
+
+3. Run the application:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
